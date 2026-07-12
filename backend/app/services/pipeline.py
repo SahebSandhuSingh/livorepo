@@ -113,7 +113,15 @@ async def run_assessment(
                 "phonemes_with_issues": phoneme_errors
             })
 
-    logger.info("Flagged %d / %d words for OpenAI feedback", len(flagged_details), len(azure_result.words))
+    # Log details for every flagged word immediately before the LLM feedback call
+    if flagged_details:
+        logger.info("--- PASSING TO OPENAI FOR COACHING FEEDBACK ---")
+        for fd in flagged_details:
+            logger.info("  👉 Word: '%s', Azure Score: %s, Issue Type: %s, Phoneme Errors: %s",
+                        fd["word"], fd["score"], fd["error_type"], fd["phonemes_with_issues"])
+        logger.info("-----------------------------------------------")
+    else:
+        logger.info("No words flagged for OpenAI coaching feedback.")
 
     # Fetch summary and per-word coaching tips from OpenAI
     openai_result = openai_service.generate_feedback(
@@ -157,8 +165,20 @@ async def run_assessment(
             feedback = feedback_item
 
         # Fallback explanation if word was flagged but OpenAI didn't provide any text
-        if not feedback and (azure_word.accuracy_score < flag_threshold or issue):
-            feedback = f"Pronounced as {azure_word.error_type.lower()}."
+        if azure_word.accuracy_score < flag_threshold or issue:
+            if not feedback:
+                logger.error("Data missing: No OpenAI feedback generated for flagged word '%s' (Score: %s, Issue: %s)",
+                             azure_word.word, azure_word.accuracy_score, issue or "None")
+                
+                # Provide a clean, specific fallback message
+                if issue:
+                    feedback = f"Pronunciation issue: {issue} (Score: {int(azure_word.accuracy_score)}/100)."
+                else:
+                    feedback = f"Pronunciation accuracy below target threshold (Score: {int(azure_word.accuracy_score)}/100)."
+        else:
+            # Word is above threshold and has no issues
+            if not feedback:
+                feedback = "Excellent pronunciation! No issues detected."
 
         words_response.append(WordResult(
             word=azure_word.word,

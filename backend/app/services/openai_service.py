@@ -54,6 +54,8 @@ def generate_feedback(
         "    - feedback: A short (10-15 words) coaching tip on how to say it better, referencing the specific phoneme error if applicable "
         "(e.g. 'Try extending the vowel sound slightly', or 'Make sure to touch your tongue to your palate for the D sound').\n\n"
         "Rules:\n"
+        "- CRITICAL: You must generate a unique, specific coaching tip for every single flagged word individually. "
+        "Never use the same generic copy-pasted feedback text for multiple different words.\n"
         "- Do not mention 'AI', 'confidence score', 'Whisper', 'Azure', or technical identifiers in your text. Address the student directly.\n"
         "- Only include the requested fields in the JSON. Return valid JSON only."
     )

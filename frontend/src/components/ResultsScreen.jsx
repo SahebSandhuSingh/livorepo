@@ -45,13 +45,19 @@ export default function ResultsScreen({ result, audioBlob, onReset }) {
     return 'bad';
   };
 
-  const audioUrl = audioBlob ? URL.createObjectURL(audioBlob) : '';
+  const [audioUrl, setAudioUrl] = useState('');
 
   useEffect(() => {
+    if (!audioBlob) {
+      setAudioUrl('');
+      return;
+    }
+    const url = URL.createObjectURL(audioBlob);
+    setAudioUrl(url);
     return () => {
-      if (audioUrl) URL.revokeObjectURL(audioUrl);
+      URL.revokeObjectURL(url);
     };
-  }, [audioUrl]);
+  }, [audioBlob]);
 
   const showScoring = !result.scoring_unavailable;
 
@@ -148,10 +154,14 @@ export default function ResultsScreen({ result, audioBlob, onReset }) {
                         <div className="word-popover-issue">Issue: {wordObj.issue}</div>
                       )}
 
-                      {showScoring && wordObj.feedback ? (
-                        <div className="word-popover-feedback">{wordObj.feedback}</div>
+                      {showScoring && (wordObj.score < 60 || wordObj.issue) ? (
+                        <div className="word-popover-feedback">
+                          {wordObj.feedback || `Pronunciation issue: ${wordObj.issue || 'Low accuracy'} (Score: ${Math.round(wordObj.score)}/100).`}
+                        </div>
                       ) : showScoring ? (
-                        <div className="word-popover-feedback">Excellent pronunciation. No issues detected.</div>
+                        <div className="word-popover-feedback">
+                          {wordObj.feedback || "Excellent pronunciation. No issues detected."}
+                        </div>
                       ) : (
                         <div className="word-popover-feedback">Scoring details unavailable.</div>
                       )}
