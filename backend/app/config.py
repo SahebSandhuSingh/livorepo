@@ -15,8 +15,9 @@ class Settings(BaseSettings):
     azure_speech_key: str = ""
     azure_speech_region: str = "centralindia"
 
-    # --- Anthropic (Claude) ---
-    anthropic_api_key: str = ""
+    # --- OpenAI ---
+    openai_api_key: str = ""
+    openai_model: str = "gpt-4o-mini"
 
     # --- Whisper ---
     whisper_model: str = "small.en"
