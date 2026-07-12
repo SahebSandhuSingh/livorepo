@@ -8,8 +8,8 @@ pronunciation scores with word-level feedback.
 1. **Validate** — checks audio format, size (≤20 MB), duration (30-45s)
 2. **Transcribe** — faster-whisper produces word-level timestamps + confidence
 3. **Score** — Azure Speech SDK pronunciation assessment (continuous mode)
-4. **Flag** — words scoring below threshold (default 60/100)
-5. **Explain** — Claude generates plain-English feedback per flagged word
+4. **Flag** — words scoring below threshold (default 80/100)
+5. **Explain** — GPT-4o generates plain-English feedback per flagged word
 6. **Cleanup** — temp audio deleted immediately after scoring
 7. **Respond** — structured JSON with scores, transcript, and feedback
 
@@ -50,8 +50,8 @@ uvicorn app.main:app --reload --port 8000
 |---|---|---|---|
 | `AZURE_SPEECH_KEY` | Yes | — | Azure Speech resource key |
 | `AZURE_SPEECH_REGION` | No | `centralindia` | Azure region |
-| `ANTHROPIC_API_KEY` | Yes | — | Anthropic API key |
+| `OPENAI_API_KEY` | Yes | — | OpenAI API key |
 | `WHISPER_MODEL` | No | `base.en` | Whisper model size |
-| `WORD_SCORE_THRESHOLD` | No | `60` | Score below which words are flagged |
+| `WORD_SCORE_THRESHOLD` | No | `80` | Score below which words are flagged |
 | `MAX_UPLOAD_SIZE_MB` | No | `20` | Maximum upload size |
 | `RATE_LIMIT` | No | `5/minute` | Rate limit per IP |

@@ -6,7 +6,7 @@
  */
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
-const REQUEST_TIMEOUT_MS = 90_000; // 90s — generous since Whisper + Azure + Claude run sequentially
+const REQUEST_TIMEOUT_MS = 90_000; // 90s — generous since Whisper + Azure + GPT-4o run sequentially
 
 /**
  * Submit an audio file for pronunciation assessment.
