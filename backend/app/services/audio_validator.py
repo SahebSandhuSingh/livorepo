@@ -18,6 +18,19 @@ from app.config import get_settings
 
 logger = logging.getLogger(__name__)
 
+# Configure pydub to use local static ffmpeg/ffprobe binaries if available (e.g. on Render)
+_base_dir = Path(__file__).resolve().parent.parent.parent
+_local_ffmpeg = _base_dir / "bin" / "ffmpeg"
+_local_ffprobe = _base_dir / "bin" / "ffprobe"
+
+if _local_ffmpeg.exists():
+    AudioSegment.converter = str(_local_ffmpeg)
+    logger.info("Configured pydub converter to local static path: %s", _local_ffmpeg)
+
+# Ensure local bin/ is in the PATH so both pydub and faster-whisper can find ffprobe/ffmpeg
+os.environ["PATH"] = f"{_base_dir / 'bin'}{os.pathsep}{os.environ.get('PATH', '')}"
+logger.info("Ensured local bin/ is prefixed in system PATH: %s", _base_dir / "bin")
+
 # Audio formats pydub can handle (via ffmpeg)
 ALLOWED_CONTENT_TYPES = {
     "audio/wav", "audio/wave", "audio/x-wav",

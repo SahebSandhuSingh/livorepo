@@ -33,6 +33,9 @@ class Settings(BaseSettings):
     # --- Rate limiting ---
     rate_limit: str = "5/minute"
 
+    # --- CORS ---
+    allowed_origins: str = "http://localhost:5173,http://localhost:5174,http://127.0.0.1:5173,http://127.0.0.1:5174"
+
     model_config = {
         "env_file": ".env",
         "env_file_encoding": "utf-8",

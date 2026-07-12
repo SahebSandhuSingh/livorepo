@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: pronunciation-backend
+    runtime: python
+    buildCommand: cd backend && ./build.sh
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: AZURE_SPEECH_KEY
+        sync: false
+      - key: AZURE_SPEECH_REGION
+        value: centralindia
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+      - key: WORD_SCORE_THRESHOLD
+        value: "80"
+      - key: ALLOWED_ORIGINS
+        sync: false
