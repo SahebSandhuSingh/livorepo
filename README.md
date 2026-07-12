@@ -4,7 +4,7 @@ A premium, full-stack web application designed to analyze spoken English audio a
 
 ---
 
-## 🌟 Key Features
+## Key Features
 
 * **Continuous Pronunciation Assessment**: Measures acoustic parameters (accuracy, fluency, completeness, and prosody) using Azure Speech SDK.
 * **Local Timing Alignment**: Employs a quantized `faster-whisper` model (`base.en` running inside 100MB of RAM) to resolve word boundaries locally on the CPU.
@@ -14,7 +14,7 @@ A premium, full-stack web application designed to analyze spoken English audio a
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```text
 ├── backend/            # FastAPI Python backend application
@@ -33,7 +33,7 @@ A premium, full-stack web application designed to analyze spoken English audio a
 
 ---
 
-## 🛠️ Local Development Setup
+## Local Development Setup
 
 ### 1. Backend Setup
 
@@ -86,7 +86,7 @@ A premium, full-stack web application designed to analyze spoken English audio a
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 ### Backend Configuration (`backend/.env`)
 
@@ -107,7 +107,7 @@ A premium, full-stack web application designed to analyze spoken English audio a
 
 ---
 
-## 🚀 Deployed Status
+## Deployed Status
 
 * **Backend**: Deployed to **Render** under Python 3.11 with custom static ffmpeg binaries.
 * **Frontend**: Deployed to **Vercel** with Vite production optimizations.
