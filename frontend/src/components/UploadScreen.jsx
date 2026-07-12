@@ -76,13 +76,13 @@ export default function UploadScreen({ onSubmit }) {
           className={`mode-tab ${mode === 'upload' ? 'active' : ''}`}
           onClick={() => { setMode('upload'); handleRemoveFile(); }}
         >
-          📁 Upload File
+          Upload File
         </button>
         <button
           className={`mode-tab ${mode === 'record' ? 'active' : ''}`}
           onClick={() => { setMode('record'); handleRemoveFile(); }}
         >
-          🎙️ Record
+          Record
         </button>
       </div>
 
@@ -110,7 +110,13 @@ export default function UploadScreen({ onSubmit }) {
           onDragLeave={handleDragLeave}
           onClick={() => consent && fileInputRef.current?.click()}
         >
-          <div className="drop-zone-icon">🎵</div>
+          <div className="drop-zone-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.5, color: 'var(--primary)' }}>
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+          </div>
           <p className="drop-zone-text">
             <strong>Drop your audio file here</strong> or click to browse
           </p>
