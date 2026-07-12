@@ -28,7 +28,7 @@ class Settings(BaseSettings):
     max_duration_s: int = 45
 
     # --- Scoring ---
-    word_score_threshold: int = 60
+    word_score_threshold: int = 80
 
     # --- Rate limiting ---
     rate_limit: str = "5/minute"
