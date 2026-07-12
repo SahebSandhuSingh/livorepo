@@ -1,6 +1,7 @@
 services:
   - type: web
     name: pronunciation-backend
+    plan: free
     runtime: python
     buildCommand: cd backend && ./build.sh
     startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
